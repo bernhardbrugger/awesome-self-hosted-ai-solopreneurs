@@ -1,0 +1,19 @@
+# Internal research notes — not part of the published list (see README
+# note in research-log.md itself for why this stays local-only).
+research-log.md
+
+# Local tooling used only to validate this repo before publishing;
+# not part of the shipped project.
+node_modules/
+package.json
+package-lock.json
+check-anchors.mjs
+
+# Runtime state from the quickstart stack — never commit real secrets or
+# local volumes.
+quickstart/.env
+.env
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db

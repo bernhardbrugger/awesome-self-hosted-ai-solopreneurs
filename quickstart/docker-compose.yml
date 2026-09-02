@@ -1,0 +1,48 @@
+services:
+  ollama:
+    image: ollama/ollama:${OLLAMA_DOCKER_TAG:-latest}
+    container_name: ollama
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ollama_data:/root/.ollama
+    # No published port on purpose: only open-webui talks to Ollama, over
+    # the internal Docker network. Do NOT publish 11434 on a public VPS —
+    # see the Ollama entry in the main README for why.
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: qdrant
+    restart: unless-stopped
+    volumes:
+      - qdrant_data:/qdrant/storage
+    # Same reasoning as Ollama: no published ports. If you need to inspect
+    # Qdrant's dashboard from your own machine, use `docker compose exec`
+    # or an SSH tunnel instead of exposing 6333/6334 publicly.
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:${WEBUI_DOCKER_TAG:-main}
+    container_name: open-webui
+    restart: unless-stopped
+    depends_on:
+      - ollama
+      - qdrant
+    ports:
+      - "${OPEN_WEBUI_PORT:-3000}:8080"
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
+      # Wire up Open WebUI's built-in RAG to use Qdrant instead of its
+      # bundled Chroma DB. See quickstart/README.md for details and for
+      # what to change if you'd rather point this at a different backend.
+      - VECTOR_DB=qdrant
+      - QDRANT_URI=http://qdrant:6333
+      - WEBUI_SECRET_KEY=${WEBUI_SECRET_KEY:?set a random secret in .env, see .env.example}
+    volumes:
+      - open_webui_data:/app/backend/data
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  ollama_data:
+  qdrant_data:
+  open_webui_data:
