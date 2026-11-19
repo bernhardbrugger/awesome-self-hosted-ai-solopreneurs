@@ -1,0 +1,13 @@
+version: 2
+updates:
+  # The awesome-lint workflow uses GitHub Actions (checkout, setup-node); keep them current.
+  # No docker ecosystem: quickstart/docker-compose.yml follows the images' moving
+  # tags (latest/main, overridable via .env), so there is no pinned version to bump.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns: ['*']
