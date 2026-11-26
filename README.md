@@ -55,6 +55,7 @@ substitute for advice from a lawyer or your local Datenschutzbeauftragte(r).
 
 - [n8n](https://github.com/n8n-io/n8n) - 400+ integrations, visual workflow builder, strong AI-agent nodes. ⚠️ Licensed under the Sustainable Use License (source-available, not OSI-approved): free to self-host for internal/non-commercial use, but reselling it as a hosted service to third-party customers is explicitly not covered and requires a commercial Enterprise license.
 - [Node-RED](https://github.com/node-red/node-red) - Apache-2.0, fully permissive flow-based automation tool. Weaker SaaS/CRM integration library than n8n, but a good fit if your automation leans toward devices, MQTT, or simple internal glue logic with zero licensing caveats.
+- [Orbi](https://orbi.build/guides/self-hosted-coding-agent/) - AGPL-3.0 coding agent that takes a GitHub issue, does the work in your own repo, and opens the PR for review. Runs on a single VPS under systemd and works with local models (llama.cpp) or any OpenAI-compatible endpoint, so prompts and code never have to leave your own infrastructure. ⚠️ Young, solo-maintained project; links to the self-hosting guide (the source repo is linked from it).
 
 ## Document Processing & OCR
 
